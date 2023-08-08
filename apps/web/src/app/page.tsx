@@ -4,7 +4,11 @@ const Home: FC = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 text-keyplate-12">
       <article className="flex max-w-2xl flex-col gap-4 p-6">
-        <h1 className="my-6 text-5xl font-bold text-keyplate-12">ACMEへようこそ！</h1>
+        <h1 className="my-6 text-center text-5xl font-bold leading-normal text-keyplate-12">
+          <span className="text-2xl">顔認証とRFIDタグを使った</span>
+          <br />
+          無人図書貸し出しシステム
+        </h1>
         <section>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et

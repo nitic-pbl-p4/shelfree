@@ -8,11 +8,10 @@ import tailwindAnimate from 'tailwindcss-animate';
 import { createThemes } from 'tw-colors';
 
 // NOTE: スエイリアスを使うとTailwindが読み込んでくれなくなる
+import { breakpoints } from './src/styles/tokens/breakpoints';
 import { coreColors } from './src/styles/tokens/colors/core';
 import { darkColors } from './src/styles/tokens/colors/dark';
 import { lightColors } from './src/styles/tokens/colors/light';
-
-// import { breakpoints } from '@/styles/tokens/breakpoints';
 
 const config: Config = {
   mode: 'jit',
@@ -27,6 +26,11 @@ const config: Config = {
       screens: {
         '2xl': '1400px',
       },
+    },
+    screens: {
+      mobile: `${breakpoints.mobile.minWidth}px`,
+      tablet: `${breakpoints.tablet.minWidth}px`,
+      desktop: `${breakpoints.desktop.minWidth}px`,
     },
     colors: {
       transparent: 'transparent',
@@ -77,6 +81,10 @@ const config: Config = {
       // ========================
     },
     extend: {
+      backgroundImage: {
+        'dot-pattern-light': "url('/background/dot-pattern-light.svg')",
+        'dot-pattern-dark': "url('/background/dot-pattern-dark.svg')",
+      },
       borderRadius: {
         // shadcn/ui
         lg: 'var(--radius)',

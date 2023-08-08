@@ -43,10 +43,10 @@ export const metadata: Metadata = {
   metadataBase: domain,
 
   title: {
-    default: 'mystack',
-    template: '%s | mystack',
+    default: 'Shelfree',
+    template: '%s | Shelfree',
   },
-  description: 'mystack is an open-source web application template for Next.js, TypeScript, Tailwind CSS, and Vercel.',
+  description: '必要なのは、あなたの顔と本だけ - 顔認証とRFIDタグを使った、無人図書貸し出しシステム',
   viewport: {
     width: 'device-width',
     initialScale: 1.0,

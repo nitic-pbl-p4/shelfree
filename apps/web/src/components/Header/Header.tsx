@@ -1,8 +1,8 @@
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { Image } from '@/components/Image/Image';
 import { Link } from '@/components/Link/Link';
-import DarkLogoImage from '@public/dark.png';
-import LightLogoImage from '@public/light.png';
+import DarkLogoImage from '@public/logo/dark.png';
+import LightLogoImage from '@public/logo/light.png';
 
 export type HeaderProps = ComponentPropsWithoutRef<'header'>;
 
@@ -12,44 +12,52 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
     {...props}
   >
     <nav
+      aria-label="グローバルバナー"
+      className={
+        'flex flex-col items-center justify-center gap-1 self-stretch bg-info-9 px-6 py-3 font-bold text-info-1'
+      }
+    >
+      📚必要なのはあなたの顔と貸りたい本だけ！
+    </nav>
+    <nav
       aria-label="グローバルナビゲーション"
       className="flex w-full max-w-md flex-row flex-nowrap items-stretch justify-center gap-6 px-6 py-3"
     >
       <Link href="/" className="inline-flex shrink-0 items-center duration-100 hover:scale-110 hover:shadow-card">
         <Image
           src={LightLogoImage}
-          alt="ACMEのロゴ"
+          alt="Shelfreeのロゴ"
           sizes={{
-            default: '20vw',
-            tablet: '15vw',
-            desktop: '10vw',
+            default: '40vw',
+            tablet: '25vw',
+            desktop: '20vw',
           }}
           placeholder="blur"
-          className="w-[50px] dark:hidden"
+          className="w-40 dark:hidden"
         />
         <Image
           src={DarkLogoImage}
-          alt="ACMEのロゴ"
+          alt="Shelfreeのロゴ"
           sizes={{
-            default: '20vw',
-            tablet: '15vw',
-            desktop: '10vw',
+            default: '40vw',
+            tablet: '25vw',
+            desktop: '20vw',
           }}
           placeholder="blur"
-          className="hidden w-[50px] dark:block"
+          className="hidden w-40 dark:block"
         />
       </Link>
       <ul className="flex shrink grow flex-row items-center justify-between truncate">
         <li className="inline-flex shrink truncate">
           <Link
-            title="記事を見る"
+            title="本を探す"
             href="/"
             className="tablet:px-4 truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11"
           >
-            私たちについて
+            本を探す
           </Link>
         </li>
-        <li className="inline-flex shrink truncate">
+        {/* {/* <li className="inline-flex shrink truncate">
           <Link
             title="タグを見る"
             href="/"
@@ -57,14 +65,14 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
           >
             規約
           </Link>
-        </li>
+        </li> */}
         <li className="inline-flex shrink truncate">
           <Link
-            title="メンバ紹介"
+            title="ログイン"
             href="/"
             className="tablet:px-4 truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11"
           >
-            使い方
+            ログイン
           </Link>
         </li>
       </ul>
