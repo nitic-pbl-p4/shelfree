@@ -52,7 +52,7 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
           <Link
             title="本を探す"
             href="/"
-            className="tablet:px-4 truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11"
+            className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
           >
             本を探す
           </Link>
@@ -70,7 +70,7 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
           <Link
             title="ログイン"
             href="/"
-            className="tablet:px-4 truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11"
+            className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
           >
             ログイン
           </Link>

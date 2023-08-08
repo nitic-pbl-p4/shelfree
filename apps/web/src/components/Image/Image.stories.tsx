@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Image } from './Image';
-import LightLogoImage from '@public/light.png';
+import LightLogoImage from '@public/logo/light.png';
 
 type Story = StoryObj<typeof Image>;
 
