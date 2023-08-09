@@ -70,7 +70,7 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
         <li className="inline-flex shrink truncate">
           <Link
             title="ログイン"
-            href="/sign-in"
+            href="/sign-in/"
             className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
           >
             ログイン
