@@ -1,3 +1,4 @@
+import { UserButton } from '@clerk/nextjs';
 import type { ComponentPropsWithoutRef, FC } from 'react';
 import { Image } from '@/components/Image/Image';
 import { Link } from '@/components/Link/Link';
@@ -69,11 +70,14 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
         <li className="inline-flex shrink truncate">
           <Link
             title="ログイン"
-            href="/"
+            href="/sign-in"
             className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
           >
             ログイン
           </Link>
+        </li>
+        <li>
+          <UserButton afterSignOutUrl="/" />
         </li>
       </ul>
     </nav>
