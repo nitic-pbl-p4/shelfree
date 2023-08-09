@@ -1,3 +1,4 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import { Analytics } from '@vercel/analytics/react';
 import type { Metadata } from 'next';
 import type { FC, ReactNode } from 'react';
@@ -14,20 +15,22 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => (
   // `next-themes`プロバイダによるHydration差分を無視するため`suppressHydrationWarning`を付加する
   // 参照: https://github.com/pacocoursey/next-themes/issues/152
   // 参照: https://github.com/khinshankhan/next-themes-app-dir-example
-  <html lang="ja" suppressHydrationWarning>
-    <head />
-    <body
-      className={`flex min-h-screen flex-col bg-keyplate-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-keyplate-6 scrollbar-thumb-rounded-full hover:scrollbar-thumb-keyplate-7`}
-    >
-      {/* Refer: https://vercel.com/docs/concepts/analytics/quickstart */}
-      <Analytics />
-      <AppProvider>
-        <Header />
-        <main className="min-h-full grow">{children}</main>
-        <Footer />
-      </AppProvider>
-    </body>
-  </html>
+  <ClerkProvider>
+    <html lang="ja" suppressHydrationWarning>
+      <head />
+      <body
+        className={`flex min-h-screen flex-col bg-keyplate-2 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-keyplate-6 scrollbar-thumb-rounded-full hover:scrollbar-thumb-keyplate-7`}
+      >
+        {/* Refer: https://vercel.com/docs/concepts/analytics/quickstart */}
+        <Analytics />
+        <AppProvider>
+          <Header />
+          <main className="min-h-full grow">{children}</main>
+          <Footer />
+        </AppProvider>
+      </body>
+    </html>
+  </ClerkProvider>
 );
 
 export default RootLayout;
