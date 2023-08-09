@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") 
+}
+
+
+model Book {
+  id           String           @id @unique // 4バイトの16進数表記の文lowercase字列 (RFIDタグの識別番号と合わせる)
+  title        String // 本のタイトル
+  image        String? // 本の画像のURL
+  author       String? // 著者情報
+  createdAt  DateTime? @default(now()) // 本の取り扱いが開始された日時
+  updatedAt    DateTime? @updatedAt
+  isbn         String?       
+  transactions Transaction[]
+  availableDays Int @default(14) // 貸出可能日数
+}
+
+model Transaction {
+  id        Int      @id @default(autoincrement())
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id])
+  checkedOutAt DateTime  @default(now()) // 貸し出した日時
+  dueAt     DateTime @default(now()) // 返却期限の日時
+  returnedAt  DateTime? // 返却した日時
+  updatedAt DateTime? @updatedAt
+  userId     String // 借りた人のID (ClerkのユーザーId)
+}
