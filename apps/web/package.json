@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.23.2",
     "@t3-oss/env-nextjs": "^0.6.0",
     "@types/node": "18.17.3",
     "@types/react": "18.2.18",
