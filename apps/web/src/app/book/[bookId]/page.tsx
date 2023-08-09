@@ -23,6 +23,9 @@ import { prismaClient } from '@/utils/prisma/client';
 //   },
 // };
 
+export const revalidate = 10;
+export const runtime = 'nodejs';
+
 type BookDetailPageParams = {
   bookId: string;
 };
@@ -102,8 +105,6 @@ const BookDetailPage = async ({ params }: { params: BookDetailPageParams }): Pro
 };
 
 export default BookDetailPage;
-
-export const revalidate = 60;
 
 export const generateMetadata = async ({ params }: { params: BookDetailPageParams }): Promise<Metadata> => {
   const book = await prismaClient.book.findUnique({
