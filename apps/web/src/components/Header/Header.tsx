@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, FC } from 'react';
+import { NavLinks } from './NavLinks';
 import { Image } from '@/components/Image/Image';
 import { Link } from '@/components/Link/Link';
 import DarkLogoImage from '@public/logo/dark.png';
@@ -21,7 +22,7 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
     </nav>
     <nav
       aria-label="グローバルナビゲーション"
-      className="flex w-full max-w-md flex-row flex-nowrap items-stretch justify-center gap-6 px-6 py-3"
+      className="flex w-full max-w-lg flex-row flex-nowrap items-stretch justify-center gap-6 px-6 py-3"
     >
       <Link href="/" className="inline-flex shrink-0 items-center duration-100 hover:scale-110 hover:shadow-card">
         <Image
@@ -47,35 +48,7 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
           className="hidden w-40 dark:block"
         />
       </Link>
-      <ul className="flex shrink grow flex-row items-center justify-between truncate">
-        <li className="inline-flex shrink truncate">
-          <Link
-            title="本を探す"
-            href="/"
-            className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
-          >
-            本を探す
-          </Link>
-        </li>
-        {/* {/* <li className="inline-flex shrink truncate">
-          <Link
-            title="タグを見る"
-            href="/"
-            className="tablet:px-4 truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11"
-          >
-            規約
-          </Link>
-        </li> */}
-        <li className="inline-flex shrink truncate">
-          <Link
-            title="ログイン"
-            href="/"
-            className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
-          >
-            ログイン
-          </Link>
-        </li>
-      </ul>
+      <NavLinks />
     </nav>
     {children}
   </header>
