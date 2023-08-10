@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 export const revalidate = 300;
 
-export const UserInfoSchema = z.object({
+const UserInfoSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   username: z.string().min(1).optional(),

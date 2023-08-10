@@ -7,7 +7,7 @@ import { prismaClient } from '@/utils/prisma/client';
 
 // export const revalidate = 10;
 
-export const BookStatusSchema = BookSchema.extend({ transactions: z.array(TransactionSchema).nullable() });
+const BookStatusSchema = BookSchema.extend({ transactions: z.array(TransactionSchema).nullable() });
 
 export async function GET(request: Request, { params }: { params: { bookId: string } }) {
   const book = await prismaClient.book.findUnique({
