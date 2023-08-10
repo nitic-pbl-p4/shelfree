@@ -5,9 +5,9 @@ export const BookSchema = z.object({
   title: z.string().min(1),
   image: z.string().url().nullable().optional(),
   author: z.string().nullable().optional(),
-  publishedAt: z.date().nullable().optional(),
-  updatedAt: z.date().nullable().optional(),
-  createdAt: z.date().nullable().optional(),
+  publishedAt: z.coerce.date().nullable().optional(),
+  updatedAt: z.coerce.date().nullable().optional(),
+  createdAt: z.coerce.date().nullable().optional(),
   isbn: z.string().nullable().optional(),
   availableDays: z.number().min(1),
   // `transactions` は省略。関連付けのためのフィールドなので、バリデーションスキーマで必要とされない場合もあります。

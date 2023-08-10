@@ -7,7 +7,7 @@ import { prismaClient } from '@/utils/prisma/client';
 
 // export const revalidate = 10;
 
-const BookStatusSchema = BookSchema.extend({ transactions: z.array(TransactionSchema).nullable() });
+const BookWithTransactionsSchema = BookSchema.extend({ transactions: z.array(TransactionSchema).nullable() });
 
 export async function GET(request: Request, { params }: { params: { bookId: string } }) {
   const book = await prismaClient.book.findUnique({
@@ -23,7 +23,12 @@ export async function GET(request: Request, { params }: { params: { bookId: stri
     },
   });
 
-  const bookStatusResponse = BookStatusSchema.parse(book);
+  const bookStatusResponse = BookWithTransactionsSchema.parse({
+    ...book,
+    updatedAt: book?.updatedAt?.toISOString(),
+    createdAt: book?.createdAt?.toISOString(),
+    checkedOutAt: book?.transactions?.[0]?.checkedOutAt?.toISOString(),
+  });
 
   // book をjSONにして返す
   return NextResponse.json(bookStatusResponse);
