@@ -62,7 +62,7 @@ const BookDetailPage = async ({ params }: { params: BookDetailPageParams }): Pro
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 text-keyplate-12">
-      <article className="flex max-w-2xl flex-col gap-4">
+      <article className="flex max-w-2xl flex-col gap-4 p-6">
         <h1 className="my-6 text-center text-5xl font-bold leading-normal text-keyplate-12">📚 {book.title}</h1>
         <section className="flex w-full flex-col items-start justify-start gap-2 rounded-lg bg-keyplate-1 p-6">
           {book.transactions[0] ? (
