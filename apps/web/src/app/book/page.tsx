@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { BookItem } from '@/components/BookItem/BookItem';
 import { prismaClient } from '@/utils/prisma/client';
 

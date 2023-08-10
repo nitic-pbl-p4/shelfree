@@ -1,6 +1,5 @@
 import { currentUser } from '@clerk/nextjs';
 import { notFound } from 'next/navigation';
-import type { FC } from 'react';
 import { BookItem } from '@/components/BookItem/BookItem';
 import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
 import { prismaClient } from '@/utils/prisma/client';
