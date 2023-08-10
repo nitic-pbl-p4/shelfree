@@ -14,7 +14,7 @@ export const NavLinks: FC = () => {
       <li className="inline-flex shrink truncate">
         <Link
           title="本を探す"
-          href="/"
+          href="/book"
           className="truncate rounded-full px-1.5 py-2 no-underline hover:bg-primary-3 hover:text-primary-11 tablet:px-4"
         >
           本を探す

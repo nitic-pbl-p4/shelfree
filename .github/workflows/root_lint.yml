@@ -6,6 +6,8 @@ on:
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+  POSTGRES_PRISMA_URL: ${{ secrets.POSTGRES_PRISMA_URL }}
+  POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
 
 jobs:
   # Detects if any files specified in `filter` have changed

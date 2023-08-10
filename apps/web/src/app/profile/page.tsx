@@ -1,27 +1,81 @@
-'use client';
+import { currentUser } from '@clerk/nextjs';
+import { notFound } from 'next/navigation';
+import { BookItem } from '@/components/BookItem/BookItem';
+import { UserAvatar } from '@/components/UserAvatar/UserAvatar';
+import { prismaClient } from '@/utils/prisma/client';
 
-import { useUser } from '@clerk/nextjs';
+export const revalidate = 10;
 
-import type { FC } from 'react';
-
-const Home: FC = () => {
-  const user = useUser();
+const Home = async () => {
+  const user = await currentUser();
+  if (!user) {
+    return notFound();
+  }
+  // Transactionsも含めて取得する
+  // ただし、returnedAtがnullのもののみ選ぶ
+  const books = await prismaClient.book.findMany({
+    where: {
+      transactions: {
+        some: {
+          userId: user.id,
+        },
+      },
+    },
+    include: {
+      transactions: {
+        where: {
+          returnedAt: null,
+        },
+      },
+    },
+    orderBy: {
+      updatedAt: 'desc',
+    },
+  });
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 text-keyplate-12">
-      <article className="flex max-w-2xl flex-col gap-4 p-6">
-        <h1 className="my-6 text-center text-5xl font-bold leading-normal text-keyplate-12">プロフィール</h1>
-        <section>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-          </p>
-          <p>
-            そこでは、あらゆる事が可能である。人は一瞬にして氷雲の上に飛躍し大循環の風を従へて北に旅する事もあれば、赤い花杯の下を行く蟻と語ることもできる。
-            罪や、かなしみでさへそこでは聖くきれいにかゞやいてゐる。
-          </p>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-4 overflow-hidden text-keyplate-12">
+      <article className="flex w-full max-w-4xl flex-col items-stretch justify-start gap-4 p-6">
+        <hgroup className="flex flex-col items-center justify-start">
+          <h1 className="my-6 w-full text-center text-4xl font-bold leading-normal text-keyplate-12">
+            👤 プロフィール
+          </h1>
+          <UserAvatar userId={user.id} showName />
+        </hgroup>
+        <h2 className="text-2xl font-bold">📚 本の貸出履歴</h2>
+        <section className="flex w-full flex-col items-stretch justify-start gap-4 overflow-hidden desktop:flex-row desktop:flex-wrap">
+          {books.map((book) => {
+            const ongoingTransaction = book.transactions.find((transaction) => transaction.returnedAt === null);
+            const transactionInfo = ongoingTransaction
+              ? {
+                  userId: ongoingTransaction.userId,
+                  dueAt: ongoingTransaction.dueAt,
+                }
+              : {};
+            return (
+              <BookItem
+                key={book.id}
+                className="w-full max-w-sm"
+                {...{
+                  id: book.id,
+                  title: book.title,
+                  image: book.image || undefined,
+                  author: book.author || undefined,
+                  createdAt: book.createdAt || undefined,
+                  availableDays: book.availableDays,
+                }}
+                {...transactionInfo}
+              />
+            );
+          })}
+        </section>
+        <section className="flex w-full flex-col items-start justify-start">
+          <h2>履歴の詳細</h2>
+          <pre className="w-full whitespace-pre-wrap break-all bg-keyplate-3 p-6 font-mono text-sm text-keyplate-11">
+            <code>{JSON.stringify(books, null, 2)}</code>
+          </pre>
+        </section>
+        <section className="flex w-full flex-col items-start justify-start">
+          <h2>ユーザーの詳細</h2>
           <code className="flex w-full items-start justify-start overflow-hidden text-clip bg-keyplate-3 p-4 text-keyplate-11">
             <pre>{JSON.stringify(user, null, 2)}</pre>
           </code>
