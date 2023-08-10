@@ -18,6 +18,7 @@ const Home = async () => {
       transactions: {
         some: {
           userId: user.id,
+          returnedAt: null,
         },
       },
     },

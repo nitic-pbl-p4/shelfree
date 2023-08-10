@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import type { FC, ReactNode } from 'react';
 import { Footer } from '@/components/Footer/Footer';
 import { Header } from '@/components/Header/Header';
+import { Toaster } from '@/components/ui/toaster';
 import { AppProvider } from '@/providers';
 import '@/styles/globals.css';
 
@@ -27,6 +28,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => (
           <Header />
           <main className="min-h-full grow">{children}</main>
           <Footer />
+          <Toaster />
         </AppProvider>
       </body>
     </html>
