@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 // import { z } from 'zod';
 import { PayloadSchema } from '@/models/payload';
 import { prismaClient } from '@/utils/prisma/client';
+import crypto from 'crypto';
 
 export async function POST(request: Request) {
   try {
@@ -25,8 +26,30 @@ export async function POST(request: Request) {
 
     // ペイロードの署名を確認
     // TODO ！！！！！！！！！！！！！！！！！！！！！！！！
+    const publicKey = fs.readFileSync('public_key.pem', 'utf8');
+    const signature = payload.signature;
+    delete payload.signature; // 署名部分を一時的に削除
+
+    // ペイロードを文字列に変換
+    const payloadString = JSON.stringify(payload);
+
+    // 署名をBase64デコードしてバッファに変換
+    const signatureBuffer = Buffer.from(signature, 'base64');
+
+    // ペイロードのハッシュを計算
+    const hash = crypto.createHash('sha256').update(payloadString).digest();
+
+    // 署名の検証
+    const isVerified = crypto.verify(
+      'sha256',
+      Buffer.from(hash),
+      { key: publicKey, padding: crypto.constants.RSA_PKCS1_PSS_PADDING },
+      signatureBuffer
+    );
+
+
     // ここに署名の検証処理を書く
-    if (!payload.signature) {
+    if (!isVerified) {
       // 書き換える
       throw new Error('署名が不正です。改竄の可能性があるので、貸し出し処理を中止します');
     }
