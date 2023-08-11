@@ -86,7 +86,7 @@ export const BorrowPage: FC = () => {
         description: e instanceof Error ? e.message : String(e),
       });
     }
-  }, [toast]);
+  }, [toast, queryClient]);
 
   if (isLoading) {
     return <div>読み込み中...</div>;
