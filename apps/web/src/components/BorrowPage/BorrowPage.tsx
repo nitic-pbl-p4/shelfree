@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { ClientBookItem } from './ClientBookItem';
@@ -32,6 +32,7 @@ export const BorrowPage: FC = () => {
     refetchInterval: 2000, // 2秒ごとに再取得
   });
 
+  const queryClient = useQueryClient();
   const { toast } = useToast();
 
   const onReset = useCallback(async () => {
@@ -74,6 +75,9 @@ export const BorrowPage: FC = () => {
         title: '本を貸し出しました',
         description: `選択されていた全ての本について手続きが成功しました。ご利用ありがとうございました。${await response.text()}`,
       });
+      queryClient.invalidateQueries({
+        queryKey: ['book'],
+      });
     } catch (e) {
       // エラー時の処理
       toast({
@@ -82,7 +86,7 @@ export const BorrowPage: FC = () => {
         description: e instanceof Error ? e.message : String(e),
       });
     }
-  }, [toast]);
+  }, [toast, queryClient]);
 
   if (isLoading) {
     return <div>読み込み中...</div>;
