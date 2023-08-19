@@ -19,7 +19,7 @@ const Home = async () => {
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 text-keyplate-12">
       <article className="flex max-w-4xl flex-col gap-4 p-6">
         <h1 className="my-6 text-center text-5xl font-bold leading-normal text-keyplate-12">本を探す</h1>
-        <section className="flex w-full flex-col items-stretch justify-start gap-4 overflow-hidden desktop:flex-row desktop:flex-wrap">
+        <section className="flex w-full flex-col items-stretch justify-start gap-4 gap-y-8 overflow-hidden desktop:flex-row desktop:flex-wrap">
           {books.map((book) => {
             const ongoingTransaction = book.transactions.find((transaction) => transaction.returnedAt === null);
             const transactionInfo = ongoingTransaction
@@ -38,9 +38,12 @@ const Home = async () => {
                   image: book.image || undefined,
                   author: book.author || undefined,
                   createdAt: book.createdAt || undefined,
+                  ownerMessage: book.ownerMessage || undefined,
+                  ownerUserId: book.ownerUserId || undefined,
                   availableDays: book.availableDays,
                 }}
                 {...transactionInfo}
+                showOwner
               />
             );
           })}

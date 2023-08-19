@@ -15,10 +15,10 @@ export const Header: FC<HeaderProps> = ({ children, ...props }) => (
     <nav
       aria-label="グローバルバナー"
       className={
-        'flex flex-col items-center justify-center gap-1 self-stretch bg-info-9 px-6 py-3 font-bold text-info-1'
+        'text-info- flex flex-col items-center justify-center gap-1 self-stretch bg-info-9 px-6 py-3 text-center font-bold'
       }
     >
-      📚必要なのはあなたの顔と貸りたい本だけ！
+      📚 必要なのはあなたの顔と貸りたい本だけ！本で繋がる友情 👫
     </nav>
     <nav
       aria-label="グローバルナビゲーション"

@@ -1,5 +1,7 @@
 // import { clerkClient } from '@clerk/nextjs';
 // import { User } from '@clerk/nextjs/dist/types/server';
+import { format } from 'date-fns';
+import ja from 'date-fns/locale/ja';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { ReactElement } from 'react';
@@ -70,10 +72,18 @@ const BookDetailPage = async ({ params }: { params: BookDetailPageParams }): Pro
               <h2 className="text-2xl font-bold">❌ 現在、この本は貸出中です</h2>
               <UserAvatar userId={book.transactions[0].userId} showName={true} />
               <p>
-                🫱 <span className="font-bold">{`${book.transactions[0].checkedOutAt}`}</span> に貸し出し開始
+                🫱{' '}
+                <span className="font-bold">
+                  {format(book.transactions[0].checkedOutAt, 'yyyy年MM月dd日(E) HH時mm分', { locale: ja })}
+                </span>{' '}
+                に貸し出し開始
               </p>
               <p>
-                📅 <span className="font-bold">{`${book.transactions[0].dueAt}`}</span> までに要返却
+                📅{' '}
+                <span className="font-bold">
+                  {format(book.transactions[0].dueAt, 'yyyy年MM月dd日(E) HH時mm分', { locale: ja })}
+                </span>{' '}
+                までに要返却
               </p>
               <p>📮 まだ返却されていません</p>
             </>
@@ -93,6 +103,15 @@ const BookDetailPage = async ({ params }: { params: BookDetailPageParams }): Pro
               height={600}
               alt="本の表紙"
             />
+          )}
+          {book.ownerUserId && (
+            <div className="flex w-full flex-col items-start justify-start gap-2 rounded-lg bg-keyplate-1 p-6">
+              <UserAvatar userId={book.ownerUserId} showName={true} />
+              <h3 className="text-xs font-bold text-keyplate-11">本の持ち主からのひとこと</h3>
+              <p className="italic">
+                &ldquo;{book.ownerMessage}&rdquo;<span className="text-keyplate-11"> － ぜひ借りてみましょう！</span>
+              </p>
+            </div>
           )}
           <h2 className="my-6 text-center text-2xl font-bold leading-normal text-keyplate-12">この本の詳細情報</h2>
           <pre className="w-full whitespace-pre-wrap break-all bg-keyplate-3 p-6 font-mono text-sm text-keyplate-11">
