@@ -14,7 +14,7 @@ export const UserAvatar = async ({ userId, showName, ...props }: UserAvatarProps
     <div className="flex flex-row items-center justify-start gap-3">
       <Avatar {...props}>
         <AvatarFallback>{firstName}</AvatarFallback>
-        <AvatarImage src={imageUrl} />
+        <AvatarImage src={imageUrl} alt={`${firstName} ${lastName} のアイコン`} />
       </Avatar>
       {showName && (
         <p className="font-bold">

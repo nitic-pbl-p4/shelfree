@@ -5,6 +5,8 @@ export const BookSchema = z.object({
   title: z.string().min(1),
   image: z.string().url().nullable().optional(),
   author: z.string().nullable().optional(),
+  ownerMessage: z.string().nullable().optional(),
+  ownerUserId: z.string().nullable().optional(),
   publishedAt: z.coerce.date().nullable().optional(),
   updatedAt: z.coerce.date().nullable().optional(),
   createdAt: z.coerce.date().nullable().optional(),

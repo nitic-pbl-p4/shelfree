@@ -18,6 +18,8 @@ model Book {
   title        String // 本のタイトル
   image        String? // 本の画像のURL
   author       String? // 著者情報
+  ownerMessage String?
+  ownerUserId String?
   createdAt  DateTime? @default(now()) // 本の取り扱いが開始された日時
   updatedAt    DateTime? @updatedAt
   isbn         String?       
